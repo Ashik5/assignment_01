@@ -186,7 +186,7 @@ class SecondPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
                 bookCover,
-                height: 400,
+                height: 350,
               ),
             ),
             const SizedBox(
@@ -210,6 +210,18 @@ class SecondPage extends StatelessWidget {
             ),
             const SizedBox(
               height: 10,
+            ),
+            DropdownButton<String>(
+              items: <String>['BKash', 'Rocket', 'Nagad'].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                // Handle dropdown value change
+              },
+              hint: Text('Bkash'),
             ),
             ElevatedButton(
                 style: const ButtonStyle(
