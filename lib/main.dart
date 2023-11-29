@@ -8,9 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => const FirstPage(),
+        '/details': (context) =>
+            const SecondPage("assets/images/book1.jpg", "", "", 0),
       },
     );
   }
@@ -74,7 +77,7 @@ class BookCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   bookCover,
                   height: 150,
@@ -114,7 +117,7 @@ class BookCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Price : $price",
+                        "Price : \$$price",
                         style: const TextStyle(
                           color: Colors.black54,
                           fontSize: 18,
@@ -130,10 +133,15 @@ class BookCard extends StatelessWidget {
                     style: const ButtonStyle(
                       elevation: MaterialStatePropertyAll(0),
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
-                      fixedSize: MaterialStatePropertyAll(Size.fromWidth(200)),
                     ),
                     onPressed: () {
-                      print('working');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SecondPage(
+                              bookCover, bookName, authorName, price),
+                        ),
+                      );
                     },
                     child: const Text('Buy Now'),
                   ),
@@ -142,6 +150,77 @@ class BookCard extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  final String bookName;
+  final String author;
+  final String bookCover;
+  final double price;
+  const SecondPage(this.bookCover, this.bookName, this.author, this.price,
+      {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(
+          bookName,
+          style: const TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white30,
+        foregroundColor: Colors.black,
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                bookCover,
+                height: 400,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Author : $author",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              "Price : \$$price",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(
+              width: 350,
+              child: Text(
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.black),
+                ),
+                onPressed: () {
+                  print('working');
+                },
+                child: Text('Buy Now'))
+          ],
+        ),
       ),
     );
   }
