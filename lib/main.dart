@@ -1,11 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
-}
-
-void onPressedFunction() {
-  print('Button Pressed');
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +13,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const FirstPage(),
+        '/details': (context) => const SecondPage("", "", "", 0),
       },
     );
   }
@@ -130,20 +129,69 @@ class BookCard extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const ElevatedButton(
-                    style: ButtonStyle(
+                  ElevatedButton(
+                    style: const ButtonStyle(
                       elevation: MaterialStatePropertyAll(0),
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
-                      fixedSize: MaterialStatePropertyAll(Size.fromWidth(200)),
                     ),
-                    onPressed: onPressedFunction,
-                    child: Text('Buy Now'),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/details');
+                    },
+                    child: const Text('Buy Now'),
                   ),
                 ],
               ),
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  final String bookName;
+  final String author;
+  final String bookCover;
+  final double price;
+  const SecondPage(this.bookCover, this.bookName, this.author, this.price,
+      {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(
+          bookName,
+          style: const TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                'assets/images/book1.jpg',
+                height: 400,
+              ),
+            ),
+            Text("Author : $author"),
+            Text("Price : $price"),
+            ElevatedButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.black),
+                ),
+                onPressed: () {
+                  print('working');
+                },
+                child: Text('Buy Now'))
+          ],
+        ),
       ),
     );
   }
