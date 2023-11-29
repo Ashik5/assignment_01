@@ -4,10 +4,6 @@ void main() {
   runApp(MyApp());
 }
 
-void onPressedFunction() {
-  print('Button Pressed');
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -130,14 +126,16 @@ class BookCard extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const ElevatedButton(
-                    style: ButtonStyle(
+                  ElevatedButton(
+                    style: const ButtonStyle(
                       elevation: MaterialStatePropertyAll(0),
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
                       fixedSize: MaterialStatePropertyAll(Size.fromWidth(200)),
                     ),
-                    onPressed: onPressedFunction,
-                    child: Text('Buy Now'),
+                    onPressed: () {
+                      print('working');
+                    },
+                    child: const Text('Buy Now'),
                   ),
                 ],
               ),
