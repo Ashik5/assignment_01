@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => const FirstPage(),
@@ -136,7 +135,13 @@ class BookCard extends StatelessWidget {
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/details');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SecondPage(
+                              bookCover, bookName, authorName, price),
+                        ),
+                      );
                     },
                     child: const Text('Buy Now'),
                   ),
