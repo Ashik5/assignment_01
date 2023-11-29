@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const FirstPage(),
-        '/details': (context) => const SecondPage("", "", "", 0),
+        '/details': (context) =>
+            const SecondPage("assets/images/book1.jpg", "", "", 0),
       },
     );
   }
@@ -77,7 +78,7 @@ class BookCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   bookCover,
                   height: 150,
@@ -117,7 +118,7 @@ class BookCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Price : $price",
+                        "Price : \$$price",
                         style: const TextStyle(
                           color: Colors.black54,
                           fontSize: 18,
@@ -166,22 +167,45 @@ class SecondPage extends StatelessWidget {
           bookName,
           style: const TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white30,
         foregroundColor: Colors.black,
       ),
       body: Container(
         alignment: Alignment.center,
         child: Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                'assets/images/book1.jpg',
+                bookCover,
                 height: 400,
               ),
             ),
-            Text("Author : $author"),
-            Text("Price : $price"),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Author : $author",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              "Price : \$$price",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(
+              width: 350,
+              child: Text(
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             ElevatedButton(
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Colors.black),
